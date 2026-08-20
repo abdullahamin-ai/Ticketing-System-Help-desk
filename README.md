@@ -46,7 +46,7 @@ This system models a real support desk workflow with three roles — **Customer*
 - 🔎 Pagination and filtering across list endpoints
 
 <p align="center">
-  <img src="images/5_Admin_dashboard.png" alt="Admin dashboard" width="720" /><br/>
+  <img src="Images/5_Admin_dashboard.png" alt="Admin dashboard" width="720" /><br/>
   <sub>Admin dashboard — system-wide ticket health, quick actions, and status/priority breakdown</sub>
 </p>
 
@@ -101,12 +101,12 @@ This system models a real support desk workflow with three roles — **Customer*
 <tr>
 <td width="50%">
 <p align="center"><b>Agent view</b></p>
-<img src="images/7_Agent_dashboard.png" alt="Agent dashboard" />
+<img src="Images/7_Agent_dashboard.png" alt="Agent dashboard" />
 <p align="center"><sub>Only tickets assigned to the logged-in agent</sub></p>
 </td>
 <td width="50%">
 <p align="center"><b>Customer view</b></p>
-<img src="images/6_Customer_dashboard.png" alt="Customer dashboard" />
+<img src="Images/6_Customer_dashboard.png" alt="Customer dashboard" />
 <p align="center"><sub>A customer's own tickets and support activity</sub></p>
 </td>
 </tr>
@@ -134,7 +134,7 @@ Ticketing System/
 │       ├── components/          # Shared UI components
 │       ├── services/            # API client modules
 │       └── store/                # Zustand stores
-└── images/                      # Screenshots used in this README
+└── Images/                      # Screenshots used in this README
 ```
 
 ---
@@ -163,7 +163,7 @@ uvicorn app.main:app --reload
 API runs at `http://127.0.0.1:8000` — interactive docs at `http://127.0.0.1:8000/docs`.
 
 <p align="center">
-  <img src="images/4_Helpdesk_backend_terminal.png" alt="Backend running in terminal" width="600" /><br/>
+  <img src="Images/4_Helpdesk_backend_terminal.png" alt="Backend running in terminal" width="600" /><br/>
   <sub>FastAPI backend running via Uvicorn</sub>
 </p>
 
@@ -177,7 +177,7 @@ npm run dev
 App runs at `http://localhost:5173`.
 
 <p align="center">
-  <img src="images/3_Helpdesk_frontend_terminal.png" alt="Frontend running in terminal" width="600" /><br/>
+  <img src="Images/3_Helpdesk_frontend_terminal.png" alt="Frontend running in terminal" width="600" /><br/>
   <sub>React frontend running via Vite</sub>
 </p>
 
@@ -197,7 +197,7 @@ docker compose up --build
 - The token's embedded role (`customer` / `agent` / `admin`) drives what each user can see and do — enforced server-side in the service layer, not just hidden in the UI
 
 <p align="center">
-  <img src="images/2_Login_page.png" alt="Login page" width="420" /><br/>
+  <img src="Images/2_Login_page.png" alt="Login page" width="420" /><br/>
   <sub>Sign-in screen</sub>
 </p>
 
@@ -206,7 +206,7 @@ docker compose up --build
 ## 📘 API Examples
 
 <p align="center">
-  <img src="images/1_Swagger_ui.png" alt="Swagger UI" width="720" /><br/>
+  <img src="Images/1_Swagger_ui.png" alt="Swagger UI" width="720" /><br/>
   <sub>Interactive, auto-generated API reference at <code>/docs</code></sub>
 </p>
 
