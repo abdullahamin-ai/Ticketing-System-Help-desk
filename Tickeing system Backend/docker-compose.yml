@@ -1,0 +1,52 @@
+version: "3.9"
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: helpdesk_db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-helpdesk}
+      MYSQL_USER: ${MYSQL_USER:-helpdesk}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-helpdesk}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpass}
+    ports:
+      - "${MYSQL_PORT:-3306}:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p${MYSQL_ROOT_PASSWORD:-rootpass}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: .
+    container_name: helpdesk_api
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      APP_ENV: production
+      DEBUG: "0"
+      SECRET_KEY: ${SECRET_KEY:-change-me-in-production}
+      DATABASE_URL: mysql+aiomysql://${MYSQL_USER:-helpdesk}:${MYSQL_PASSWORD:-helpdesk}@db:3306/${MYSQL_DATABASE:-helpdesk}
+      ACCESS_TOKEN_EXPIRE_MINUTES: ${ACCESS_TOKEN_EXPIRE_MINUTES:-60}
+      CORS_ORIGINS: ${CORS_ORIGINS:-*}
+      UPLOAD_DIR: /app/uploads
+      INITIAL_ADMIN_EMAIL: ${INITIAL_ADMIN_EMAIL}
+      INITIAL_ADMIN_PASSWORD: ${INITIAL_ADMIN_PASSWORD}
+      INITIAL_ADMIN_FULL_NAME: ${INITIAL_ADMIN_FULL_NAME:-System Administrator}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    volumes:
+      - upload_data:/app/uploads
+    ports:
+      - "${API_PORT:-8000}:8000"
+    command: >
+      sh -c "alembic upgrade head &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000"
+
+volumes:
+  dbdata:
+  upload_data:
